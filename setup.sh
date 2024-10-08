@@ -99,8 +99,8 @@ cd /opt/applic/wazuh-docker
 docker compose restart
 
 # To open the dashboard from the host over the jump host
-apt-get install xdg-utils -y
-apt-get install firefox -y
+# apt-get install xdg-utils -y
+# apt-get install firefox -y
 
 # Install Wazuh Agent on Ubuntu Server
 curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | apt-key add -
@@ -119,7 +119,7 @@ systemctl start wazuh-agent
 
 # Send cert to Windows Client
 cd /opt/applic/soc_config/traefik/certs/
-smbclient -U "${admin_username}%${admin_password}" //10.0.1.10/c$ -c 'cd ./ ; put cert.crt'
+smbclient -U "${admin_username}%${admin_password}" //10.0.1.16/c$ -c 'cd ./ ; put cert.crt'
 
 echo "finished"
 
