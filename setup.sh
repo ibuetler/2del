@@ -44,6 +44,7 @@ sysctl -w vm.max_map_count=262144
 
 
 # Clone Wazuh, additional tools and SOC configuration repositories
+git config --global advice.detachedHead false
 cd /opt/applic/
 git clone https://github.com/wazuh/wazuh-docker.git -b v4.1.2 --depth=1
 git clone https://github.com/Hacking-Lab/SecurityOperationsCenter.git soc_config
