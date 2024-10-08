@@ -71,19 +71,19 @@ openssl req -newkey rsa:2048 -x509 -nodes -keyout cert.key -new -out cert.crt -s
 # Start traefik
 docker network create traefik_proxy
 cd /opt/applic/soc_config/traefik/
-docker-compose up -d
+docker compose up -d
 
 # Start Wazuh
 cd /opt/applic/wazuh-docker/
-docker-compose up -d
+docker compose up -d
 
 # Start attack launcher
 cd /opt/applic/soc_config/attack-launcher/
-docker-compose up -d
+docker compose up -d
 
 # Start mailcatcher
 cd /opt/applic/soc_config/mailcatcher/
-docker-compose up -d
+docker compose up -d
 chmod +x smtptest.py
 
 # Install jq tool -> JSON parsing tool
@@ -92,8 +92,10 @@ apt-get install jq -y
 
 
 # Wait 5 minutes & restart Wazuh
-sleep 5m
-cd /opt/applic/wazuh-docker && docker-compose restart
+echo "sleeping 30 seconds"
+sleep 30
+cd /opt/applic/wazuh-docker
+docker compose restart
 
 # To open the dashboard from the host over the jump host
 apt-get install xdg-utils -y
@@ -117,3 +119,7 @@ systemctl start wazuh-agent
 # Send cert to Windows Client
 cd /opt/applic/soc_config/traefik/certs/
 smbclient -U "${admin_username}%${admin_password}" //10.0.1.10/c$ -c 'cd ./ ; put cert.crt'
+
+echo "finished"
+
+
